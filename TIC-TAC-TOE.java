@@ -1,4 +1,4 @@
-
+package tic_tac_toe;
 
 import java.util.Scanner;
 
@@ -19,7 +19,7 @@ public class game {
 			for(int j=0;j<3;j++)
 			{
 				board[i][j]=' ';
-			}
+			} 
 		}
 	}
 	//Display the current board
@@ -55,11 +55,15 @@ public class game {
 			{
 				printBoard();
 				System.out.println("Player "+currentPlayer+"'s turn.Enter the row and column (0,1,or 2):");
+				System.out.println(" ");
+				System.out.println("Enter the row and column which supperated by SPACE....!");
 				int row =scan.nextInt();
 				int column=scan.nextInt();
 				
+				if(row >= 0 && row < 3 && column >= 0 && column < 3)
+				{
 				//place the player's symbol on the board
-				if(board[row][column]==' ')
+			    if(board[row][column]==' ')
 				{
 					board[row][column]=currentPlayer;
 				}
@@ -68,13 +72,18 @@ public class game {
 					System.out.println("That spot is already taken.try again.");
 					continue;
 				}
-				
+				}
+				else
+				{
+					 System.out.println("Invalid input......! Please enter a row and column between 0 and 2:");
+					 System.out.println(" ");
+				}
 				//check if the game is won or draw
 				
 				if(checkWin())
 				{
 					printBoard();
-					System.out.println("Player "+currentPlayer+"wins..........!");
+					System.out.println("Player  "+currentPlayer+"  wins..........!");
 					gameRunning=false;
 				}
 				else if(isBoardFull())
