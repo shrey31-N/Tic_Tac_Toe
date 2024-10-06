@@ -1,5 +1,6 @@
 package tic_tac_toe;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class game {
@@ -51,39 +52,47 @@ public class game {
 			boolean gameRunning=true;
 			Scanner scan=new Scanner(System.in);
 			
-			while(gameRunning)
-			{
-				printBoard();
-				System.out.println("Player "+currentPlayer+"'s turn.Enter the row and column (0,1,or 2):");
-				System.out.println(" ");
-				System.out.println("Enter the row and column which supperated by SPACE....!");
-				int row =scan.nextInt();
-				int column=scan.nextInt();
-				
-				if(row >= 0 && row < 3 && column >= 0 && column < 3)
-				{
-				//place the player's symbol on the board
-			    if(board[row][column]==' ')
-				{
-					board[row][column]=currentPlayer;
-				}
-				else
-				{
-					System.out.println("That spot is already taken.try again.");
-					continue;
-				}
-				}
-				else
-				{
-					 System.out.println("Invalid input......! Please enter a row and column between 0 and 2:");
-					 System.out.println(" ");
-				}
+			 while (gameRunning) {
+		            printBoard();
+		            System.out.println("Player " + currentPlayer + "'s turn. Enter the row and column (0, 1, or 2):");
+
+		            int row = -1;
+		            int column = -1;
+
+		            // Input validation loop
+		            while (true) {
+		                try {
+		                    System.out.println("Enter the row and column separated by SPACE:");
+		                    row = scan.nextInt();
+		                    column = scan.nextInt();
+
+		                    // Check if input is within valid range
+		                    if (row >= 0 && row < 3 && column >= 0 && column < 3) {
+		                    	 if(board[row][column]==' ')
+		         				{
+		         					board[row][column]=currentPlayer;
+		         				}
+		         				else
+		         				{
+		         					System.out.println("That spot is already taken.try again.");
+		         				}
+		                    	break; // Break out of the input loop if valid
+		                    } 
+		                    	 else {
+		                        System.out.println("Invalid input. Please enter row and column between 0 and 2.");
+		                    }
+		                } catch (InputMismatchException e) {
+		                    // Handle the exception
+		                    System.out.println("Invalid input. Please enter integers only  and enter row and column between 0 and 2.");
+		                    scan.nextLine(); // Clear the invalid input
+		                }
+		            }
 				//check if the game is won or draw
 				
 				if(checkWin())
 				{
 					printBoard();
-					System.out.println("Player  "+currentPlayer+"  wins..........!");
+					System.out.println("Player  "+"'"+currentPlayer+"'"+"  wins..........!");
 					gameRunning=false;
 				}
 				else if(isBoardFull())
